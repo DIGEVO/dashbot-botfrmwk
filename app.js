@@ -27,19 +27,19 @@ var bot = new builder.UniversalBot(connector, function (session) {
     session.send(`Hola1212 ${session.message.user.name.split(" ", 1)[0]}, me dijiste: ${session.message.text}`);
 });
 
-// var restify = require('restify');
-// var server = restify.createServer();
-// server.listen(process.env.port || process.env.PORT || 3978, function () {
-//    console.log('%s listening to %s', server.name, server.url); 
-// });
-// // Listen for messages from users 
-// server.post('/api/messages', connector.listen());
 var restify = require('restify');
 var server = restify.createServer();
-server.listen(process.env.PORT, function () {
-    console.log(`test bot endpont at http://localhost:${process.env.PORT}/api/messages`);
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
 });
+// Listen for messages from users 
 server.post('/api/messages', connector.listen());
+// var restify = require('restify');
+// var server = restify.createServer();
+// server.listen(process.env.PORT, function () {
+//     console.log(`test bot endpont at http://localhost:${process.env.PORT}/api/messages`);
+// });
+// server.post('/api/messages', connector.listen());
 //utils.startServer(connector);
 
 // 'use strict';
