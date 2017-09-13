@@ -6,14 +6,7 @@ const path = require('path');
 
 require('dotenv').config();
 
-var restify = require('restify');
-// var builder = require('botbuilder');
 
-// Setup Restify Server
-var server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function () {
-   console.log('%s listening to %s', server.name, server.url); 
-});
 
 
   
@@ -25,8 +18,7 @@ var connector = new builder.ChatConnector({
     openIdMetadata: process.env.BotOpenIdMetadata 
 });
 
-// Listen for messages from users 
-server.post('/api/messages', connector.listen());
+
 
 /*----------------------------------------------------------------------------------------
 * Bot Storage: This is a great spot to register the private state storage for your bot. 
@@ -39,6 +31,13 @@ var bot = new builder.UniversalBot(connector, function (session) {
     session.send(`Hola1212 ${session.message.user.name.split(" ", 1)[0]}, me dijiste: ${session.message.text}`);
 });
 
+var restify = require('restify');
+var server = restify.createServer();
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+});
+// Listen for messages from users 
+server.post('/api/messages', connector.listen());
 
 
 // 'use strict';
