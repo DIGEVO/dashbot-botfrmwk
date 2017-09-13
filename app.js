@@ -1,6 +1,10 @@
-/*-----------------------------------------------------------------------------
-A simple echo bot for the Microsoft Bot Framework. 
------------------------------------------------------------------------------*/
+'use strict';
+
+const builder = require('botbuilder');
+const botbuilder_azure = require('botbuilder-azure');
+const path = require('path');
+
+require('dotenv').config();
 
 var restify = require('restify');
 var builder = require('botbuilder');
