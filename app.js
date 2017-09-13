@@ -6,10 +6,6 @@ const path = require('path');
 
 require('dotenv').config();
 
-
-
-
-  
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
     appId: process.env.MicrosoftAppId,
@@ -38,7 +34,13 @@ var bot = new builder.UniversalBot(connector, function (session) {
 // });
 // // Listen for messages from users 
 // server.post('/api/messages', connector.listen());
-utils.startServer(connector);
+var restify = require('restify');
+var server = restify.createServer();
+server.listen(process.env.PORT, function () {
+    console.log(`test bot endpont at http://localhost:${process.env.PORT}/api/messages`);
+});
+server.post('/api/messages', connector.listen());
+//utils.startServer(connector);
 
 // 'use strict';
 
