@@ -8,28 +8,14 @@ module.exports = {
      * @param {*} connector 
      */
 
-
     startServer(connector) {
         var restify = require('restify');
         var server = restify.createServer();
-        server.listen(process.env.PORT, function () {
-            console.log(`test bot endpont at http://localhost:${process.env.PORT}/api/messages`);
-        });
+        server.listen(
+            process.env.port || process.env.PORT || 3978,
+            () => console.log('%s listening to %s', server.name, server.url));
         server.post('/api/messages', connector.listen());
     },
-    // startServer(connector) {
-    //     if (process.env.NODE_ENV == 'development') {
-    //         var restify = require('restify');
-    //         var server = restify.createServer();
-    //         server.listen(process.env.PORT, function () {
-    //             console.log(`test bot endpont at http://localhost:${process.env.PORT}/api/messages`);
-    //         });
-    //         server.post('/api/messages', connector.listen());
-    //         return {};
-    //     } else {
-    //         return { default: connector.listen() };
-    //     }
-    // },
     /**
      * 
      * @param {*} builder 

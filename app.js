@@ -15,14 +15,14 @@ const connector = utils.getConnector(builder);
 //     openIdMetadata: process.env.BotOpenIdMetadata
 // });
 
-var restify = require('restify');
-var server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function () {
-    console.log('%s listening to %s', server.name, server.url);
-});
-// Listen for messages from users 
-server.post('/api/messages', connector.listen());
-
+// var restify = require('restify');
+// var server = restify.createServer();
+// server.listen(process.env.port || process.env.PORT || 3978, function () {
+//     console.log('%s listening to %s', server.name, server.url);
+// });
+// // Listen for messages from users 
+// server.post('/api/messages', connector.listen());
+utils.startServer(connector);
 
 const bot = new builder.UniversalBot(connector, {
     localizerSettings: {
