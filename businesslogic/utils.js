@@ -3,13 +3,13 @@
 require('dotenv').config();
 
 module.exports = {
-    initBot() {      
+    initBot() {
         const builder = require('botbuilder');
-        const connector = module.exports.getConnector(builder);        
+        const connector = module.exports.getConnector(builder);
         module.exports.startServer(connector);
         return module.exports.getBot(builder, connector);
     },
-    
+
     startServer(connector) {
         var restify = require('restify');
         var server = restify.createServer();
@@ -29,9 +29,11 @@ module.exports = {
     },
 
     getLUISModel: () => 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/' +
-        `${process.env.LUIS_APP}?subscription-key=${process.env.LUIS_KEY}&timezoneOffset=0&verbose=true`,
-    
-        dashbotApiMap: {
+        `${process.env.LUIS_APP}?subscription-key=${process.env.LUIS_KEY}&timezoneOffset=0&verbose=true`
+    ,
+
+    dashbotApiMap: {
+        'facebook': process.env.DASHBOT_API_KEY_GENERIC,
         'webchat': process.env.DASHBOT_API_KEY_GENERIC,
         'skype': process.env.DASHBOT_API_KEY_GENERIC,
         'emulator': process.env.DASHBOT_API_KEY_GENERIC,
