@@ -7,6 +7,8 @@ module.exports = {
      * 
      * @param {*} connector 
      */
+
+
     startServer(connector) {
         var restify = require('restify');
         var server = restify.createServer();
@@ -33,15 +35,12 @@ module.exports = {
      * @param {*} builder 
      */
     getConnector(builder) {
-        const botbuilder_azure = require('botbuilder-azure');
-        return process.env.NODE_ENV == 'development' ?
-            new builder.ChatConnector() :
-            new botbuilder_azure.BotServiceConnector({
-                appId: process.env['MicrosoftAppId'],
-                appPassword: process.env['MicrosoftAppPassword'],
-                stateEndpoint: process.env['BotStateEndpoint'],
-                openIdMetadata: process.env['BotOpenIdMetadata']
-            });
+        return new builder.ChatConnector({
+            appId: process.env.MicrosoftAppId,
+            appPassword: process.env.MicrosoftAppPassword,
+            stateEndpoint: process.env.BotStateEndpoint,
+            openIdMetadata: process.env.BotOpenIdMetadata
+        });
     },
     /**
      * 
