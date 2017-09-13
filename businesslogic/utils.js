@@ -40,5 +40,17 @@ module.exports = {
         'webchat': process.env.DASHBOT_API_KEY_GENERIC,
         'skype': process.env.DASHBOT_API_KEY_GENERIC,
         'emulator': process.env.DASHBOT_API_KEY_GENERIC,
+    },
+    /**
+     * 
+     * @param {*} builder 
+     * @param {*} connector 
+     */
+    getBot(builder, connector){
+        return new builder.UniversalBot(connector, {
+            localizerSettings: {
+                defaultLocale: process.env.DEFAULT_LOCALE
+            }
+        });
     }
 };
