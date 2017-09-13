@@ -2,20 +2,17 @@
 
 const builder = require('botbuilder');
 
-require('dotenv').config();
+// require('dotenv').config();
 
-const utils = require('./businesslogic/utils');
+ const utils = require('./businesslogic/utils');
 
-const connector = utils.getConnector(builder);
+// const connector = utils.getConnector(builder);
 
-utils.startServer(connector);
+// utils.startServer(connector);
 
-const bot = utils.getBot(builder, connector);
-// const bot = new builder.UniversalBot(connector, {
-//     localizerSettings: {
-//         defaultLocale: process.env.DEFAULT_LOCALE
-//     }
-// });
+// const bot = utils.getBot(builder, connector);
+
+const bot = utils.initBot();
 
 bot.dialog('/', (session) =>
     session.send(`Holaxx ${session.message.user.name.split(" ", 1)[0]}, me dijiste: ${session.message.text}`));
