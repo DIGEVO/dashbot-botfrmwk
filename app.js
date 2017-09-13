@@ -7,13 +7,15 @@ const path = require('path');
 require('dotenv').config();
 
 var restify = require('restify');
-var builder = require('botbuilder');
+// var builder = require('botbuilder');
 
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
+
+
   
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
@@ -36,6 +38,8 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send(`Hola1212 ${session.message.user.name.split(" ", 1)[0]}, me dijiste: ${session.message.text}`);
 });
+
+
 
 // 'use strict';
 
