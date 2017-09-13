@@ -1,16 +1,7 @@
 'use strict';
 
 const builder = require('botbuilder');
-
-// require('dotenv').config();
-
- const utils = require('./businesslogic/utils');
-
-// const connector = utils.getConnector(builder);
-
-// utils.startServer(connector);
-
-// const bot = utils.getBot(builder, connector);
+const utils = require('./businesslogic/utils');
 
 const bot = utils.initBot();
 
