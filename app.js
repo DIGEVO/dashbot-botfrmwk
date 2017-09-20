@@ -9,8 +9,8 @@ const bot = dashbotwrap.setDatbot(utils.initBot());
 bot.dialog('/', (session) => {
 
     session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, me dijiste: ${session.message.text}`);
-    session.send(JSON.stringify(session.message.user) + ' ' +session.message.address.channelId);
-    //session.send(session.message.address.channelId);
+    session.send(JSON.stringify(session.message.user));
+    session.send(session.message.address.channelId);
 }
 );
 
