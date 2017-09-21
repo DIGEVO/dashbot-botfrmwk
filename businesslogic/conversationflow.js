@@ -14,6 +14,7 @@ module.exports = {
         session.dialogData.isMsgFromWebhook = true;
 
         if (channelId !== 'directline' || userId !== 'DashbotChannel') {
+            console.log(`${userId} -> ${JSON.stringify(session.message.address)}`);
             cache.set(userId, session.message.address);
             session.dialogData.isMsgFromWebhook = false;
         }
