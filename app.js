@@ -37,6 +37,7 @@ bot.dialog('/', (session, args, next) => {
         }
     }
     else {
+        console.log('-*-*-*-*-*-*-*-*');
         console.log(`b4: ${session.message.address}`);
         cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/BusinessDialog');
