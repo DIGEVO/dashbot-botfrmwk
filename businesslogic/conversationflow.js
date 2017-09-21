@@ -7,6 +7,8 @@ const utils = require('./utils');
 
 const cache = new NodeCache({ stdTTL: process.env.TTL || 7200 });
 
+var temp = {};
+
 module.exports = {
     firstStep(session, args, next) {
         const channelId = session.message.address.channelId;
@@ -15,7 +17,8 @@ module.exports = {
 
         if (channelId !== 'directline' || userId !== 'DashbotChannel') {
             console.log(`${userId} -> ${JSON.stringify(session.message.address)}`);
-            cache.set(userId, session.message.address);
+            //cache.set(userId, session.message.address);
+            temp.userId = session.message.address;
             session.dialogData.isMsgFromWebhook = false;
         }
 
@@ -39,7 +42,7 @@ module.exports = {
     sendMessage(session) {
         const msg = JSON.parse(session.message.text);
         console.log(`1: ${msg.userId}`);
-        const address = cache.get(msg.userId);
+        const address = temp[msg.userId];//cache.get(msg.userId);
 
         let errorMsg = undefined;
         const name = utils.getName(session.message);
