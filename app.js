@@ -15,15 +15,18 @@ bot.dialog('/', (session, args, next) => {
     //si el canal es directline y el usuario es dashbotchannel => es en vivo,
     //sino invoco al dialogo según lógica...
     const channelId = session.message.address.channelId;
-    const userId = session.message.user.userId;
-    userCachedData = cache.get(userId) || { paused: false };
+    const userId = session.message.user.id;
+    const userCachedData = cache.get(userId) || { paused: false };
 
     if ((channelId === 'directline' && userId === 'DashbotChannel') || userCachedData.paused) {
         //reenviar lo q viene de dashbot...
-        console.log(`dashbot: ${session.message.text}`);
-        session.send('okok');
+       // console.log(`dashbot: ${session.message.text}`);
+       // session.send('okok');
+      //  cache.set(userId, {paused: true, id: '', conver});
+      bot.send(new builder.Message().text('probando....').address().textLocale('es-ES'));
     }
     else {
+        cache.set(userId, {paused: false, address: session.message.address});
         session.beginDialog('/BusinessDialog');
     }
 });
