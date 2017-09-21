@@ -40,33 +40,39 @@ function proxy(session, args, next) {
 
         userCachedData.paused = msg.paused;
         cache.set(msg.userId, userCachedData);
-        let error = false;
-        let errorMsg = '';
-        let response = '';
 
-        if (msg.text) {
-            if (userCachedData.address) {
-                bot.send(new builder.Message().text(msg.text).address(userCachedData.address));
-            } else {
-                error = true;
-                errorMsg = `error: can't send message: ${msg.text}, client's address is missing.`;
-                console.error(errorMsg);
-            }
-        }
+        let errorMsg = undefined;
+        const name = getName(session.message);
+        const greetting = greetting(session.message);
+        const text =
+            msg.text ||
+            (msg.paused ?
+                `Hola ${name}, ${greetting}, a partir de este momento hablarás con una persona` :
+                `Hola ${name}, ${greetting}, a partir de este momento hablarás con la plataforma`);
 
-        if (error) {
-            response = errorMsg;
+        if (userCachedData.address) {
+            bot.send(new builder.Message().text(text).address(userCachedData.address));
         } else {
-            response = msg.text ? 'Message was sent.' : 'Pause/Activate bot';
+            errorMsg = `Error: No se puso enviar el mensaje: "${msg.text}" ` +
+                `al cliente "${msg.userId}" porque la dirección del mismo no aparece en la base de datos.`;
+            console.error(errorMsg);
         }
 
-     //   session.send();
-        session.endDialog(response);
+        session.endDialog(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
     }
     else {
-        console.log(`b4: ${session.message.address}`);
         cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/prueba');
     }
 }
 
+function getName(message) {
+    return message.user.name.split(" ", 1)[0];
+}
+
+function greetting(message) {
+    const date = new Date(message.timestamp);
+    const userLocalTime = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    const hour = userLocalTime.getHours();
+    return hour < 12 ? 'buenos días' : hour >= 19 ? 'buenas noches' : 'buenas tardes';
+}
