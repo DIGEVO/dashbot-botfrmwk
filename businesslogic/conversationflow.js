@@ -19,8 +19,7 @@ module.exports = {
             console.log(`${userId} -> ${JSON.stringify(session.message.address)}`);
             cache.set(userId, session.message.address, (err, success) => {
                 console.log(`${err} ${success}`);
-            });
-            temp.userId = session.message.address;
+            });            
             session.dialogData.isMsgFromWebhook = false;
         }
 
