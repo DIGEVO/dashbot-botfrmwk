@@ -44,6 +44,7 @@ bot.dialog('/', (session, args, next) => {
 });
 
 bot.dialog('/BusinessDialog', (session) => {
+    console.log(`---< ${session.message.user.id}`);
     session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
         `me dijiste: ${session.message.text}, ${JSON.stringify(session.message.user)}, ` +
         `${session.message.address.channelId}`);
