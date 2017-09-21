@@ -43,7 +43,7 @@ function proxy(session, args, next) {
 
         let errorMsg = undefined;
         const name = getName(session.message);
-        const greetting = greetting(session.message);
+        const greetting = getGreetting(session.message);
         const text =
             msg.text ||
             (msg.paused ?
@@ -70,7 +70,7 @@ function getName(message) {
     return message.user.name.split(" ", 1)[0];
 }
 
-function greetting(message) {
+function getGreetting(message) {
     const date = new Date(message.timestamp);
     const userLocalTime = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     const hour = userLocalTime.getHours();
