@@ -41,6 +41,11 @@ bot.dialog('/', [(session, args, next) => {
     }
 }]);
 
+bot.dialog('/prueba', [(session) => {
+    console.log(`---< ${session.message.user.id}`);
+    session.send('pruebs......');
+}]);
+
 bot.dialog('/BusinessDialog', [(session) => {
     console.log(`---< ${session.message.user.id}`);
     session.send(`Hola6565 ${session.message.user.name.split(" ", 1)[0]}, ` +
@@ -48,10 +53,7 @@ bot.dialog('/BusinessDialog', [(session) => {
         `${session.message.address.channelId}`);
 }]);
 
-bot.dialog('/prueba', [(session) => {
-    console.log(`---< ${session.message.user.id}`);
-    session.send('pruebs......');
-}]);
+
 
 
 
