@@ -22,7 +22,7 @@ bot.dialog('/', (session, args, next) => {
     if (channelId === 'directline' && userId === 'DashbotChannel') {
         const msg = JSON.parse(session.message.text);
         const userCachedData = cache.get(msg.userId) || { paused: false, address: undefined };
-        console.log(`${userCachedData.paused} ${userCachedData.address}`);
+        console.log(`--> ${userCachedData}`);
         if (userCachedData.paused && userCachedData.address) {
             console.log(`after: ${userCachedData.address} - ${JSON.stringify(userCachedData)} - ${JSON.stringify(session.message)}`);
 
@@ -32,7 +32,7 @@ bot.dialog('/', (session, args, next) => {
                 .textLocale('es-ES'));
         } else {
             //TODO queda por ver q hacer en este punto..
-            console.log(`...malo malo: ${msg.text}`);
+            console.log(`...malo malo: ${msg.text || 'vacio'}`);
         }
     }
     else {
