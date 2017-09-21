@@ -16,7 +16,11 @@ bot.dialog('/', (session, args, next) => {
     //sino invoco al dialogo según lógica...
     const channelId = session.message.address.channelId;
     const userId = session.message.user.id;
-    const userCachedData = cache.get(userId) || { paused: false };
+    const msg = JSON.parse(session.message.text);
+
+
+
+    const userCachedData = cache.get(msg.userId) || { paused: false };
 
     if ((channelId === 'directline' && userId === 'DashbotChannel') || userCachedData.paused) {
         //reenviar lo q viene de dashbot...
