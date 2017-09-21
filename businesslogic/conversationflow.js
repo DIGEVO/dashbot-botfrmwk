@@ -70,7 +70,7 @@ module.exports = {
                 `Hola ${name}, ${greetting}, a partir de este momento hablarás con la plataforma`);
 
         if (address) {
-            bot.send(new builder.Message().text(text).address(address));
+            session.library.send(new builder.Message().text(text).address(address));
         } else {
             errorMsg = `Error: No se pudo enviar el mensaje: "${msg.text}" ` +
                 `al cliente "${msg.userId}" porque la dirección del mismo no aparece en la base de datos.`;
@@ -79,19 +79,6 @@ module.exports = {
 
         session.send(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
     }
-
-    // thirdStep(session, args, next) {
-    //     console.log('-*-*--*-*-* 1');
-    //     if (session.dialogData.activeBot) next();
-    //     console.log('-*-*--*-*-* 2');
-    //     //console.log(`2: ${userId}`);
-    //     // cache.set(userId, { paused: false, address: session.message.address });
-    //     session.beginDialog('/prueba');
-    //     console.log('-*-*--*-*-* 3');
-    // },
-
-
-    //,
 
     // proxy: (session, args, next) => {
     //     const channelId = session.message.address.channelId;
