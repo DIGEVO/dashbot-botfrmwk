@@ -11,12 +11,14 @@ const bot = dashbotwrap.setDatbot(utils.initBot());
 
 bot.dialog('/', [
     flow.firstStep,
-    flow.secondStep,
     flow.finalStep
 ]);
 
 bot.dialog('/prueba', [(session) => {
     console.log(`---< ${session.message.user.id}`);
+    const userId = session.message.user.id;
+    cache.set(userId, session.message.address);
+
     session.send('pruebs......');
 }]);
 

@@ -5,47 +5,60 @@ require('dotenv').config();
 
 const utils = require('./utils');
 
-const cache = new NodeCache({ stdTTL: process.env.TTL || 7200 });
+//const cache = new NodeCache({ stdTTL: process.env.TTL || 7200 });
 
 module.exports = {
+    cache: new NodeCache({ stdTTL: 0 }),
+
     firstStep(session, args, next) {
         const channelId = session.message.address.channelId;
         const userId = session.message.user.id;
-        session.dialogData.isMsgFromWebhook = true;
 
-        console.log(`${userId} ${channelId}`);
-
-        if (channelId !== 'directline' || userId !== 'DashbotChannel') {
-            console.log(`${userId} -> ${JSON.stringify(session.message.address)}`);
-            cache.set(userId, session.message.address, (err, success) => {
-                console.log(`${err} ${success}`);
-            });            
-            session.dialogData.isMsgFromWebhook = false;
-        }
-
-        next();
-    },
-
-    secondStep(session, args, next) {
-        if (session.dialogData.isMsgFromWebhook) {
+        if (channelId === 'directline' && userId === 'DashbotChannel') {
             module.exports.sendMessage(session);
             next();
-        }
-        else {
+        } else {
             session.beginDialog('/prueba');
         }
     },
 
+    // firstStep(session, args, next) {
+    //     const channelId = session.message.address.channelId;
+    //     const userId = session.message.user.id;
+    //     session.dialogData.isMsgFromWebhook = true;
+
+    //     console.log(`${userId} ${channelId}`);
+
+    //     if (channelId !== 'directline' || userId !== 'DashbotChannel') {
+    //         console.log(`${userId} -> ${JSON.stringify(session.message.address)}`);
+    //         cache.set(userId, session.message.address, (err, success) => {
+    //             console.log(`${err} ${success}`);
+    //         });
+    //         session.dialogData.isMsgFromWebhook = false;
+    //     }
+
+    //     next();
+    // },
+
+    // secondStep(session, args, next) {
+    //     if (session.dialogData.isMsgFromWebhook) {
+    //         module.exports.sendMessage(session);
+    //         next();
+    //     }
+    //     else {
+    //         session.beginDialog('/prueba');
+    //     }
+    // },
+
     finalStep(session, args, next) {
+        console.log('ending dialog');
         session.endDialog();
     },
 
     sendMessage(session) {
+        //TODO revisar msg.text para el valor "null"
         const msg = JSON.parse(session.message.text);
-        console.log(`1: ${msg.userId}`);
-        const address = cache.get(msg.userId, (err, value) => {
-            console.log(`${err} ${value}`);
-        });
+        const address = module.exports.cache.get(msg.userId);
 
         let errorMsg = undefined;
         const name = utils.getName(session.message);
