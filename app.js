@@ -18,8 +18,6 @@ bot.dialog('/', (session, args, next) => {
     const userId = session.message.user.id;
     const msg = JSON.parse(session.message.text);
 
-
-
     const userCachedData = cache.get(msg.userId) || { paused: false };
 
     if ((channelId === 'directline' && userId === 'DashbotChannel') || userCachedData.paused) {
