@@ -3,13 +3,17 @@
 const builder = require('botbuilder');
 const utils = require('./businesslogic/utils');
 const dashbotwrap = require('./businesslogic/dashbotwrapper');
-const botresponse = require('./businesslogic/botresponse');
+const flow = require('./businesslogic/conversationflow');
 
 require('dotenv').config();
 
 const bot = dashbotwrap.setDatbot(utils.initBot());
 
-bot.dialog('/', [botresponse.proxy]);
+bot.dialog('/', [
+    flow.firstStep,
+    flow.secondStep,
+    flow.finalStep
+]);
 
 bot.dialog('/prueba', [(session) => {
     console.log(`---< ${session.message.user.id}`);
