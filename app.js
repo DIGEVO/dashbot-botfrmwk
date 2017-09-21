@@ -30,7 +30,7 @@ bot.dialog('/BusinessDialog', [(session) => {
     session.endDialog();
 }]);
 
-async function proxy(session, args, next) {
+const proxy = async (session, args, next) => {
     const channelId = session.message.address.channelId;
     const userId = session.message.user.id;
 
