@@ -16,23 +16,22 @@ bot.dialog('/', (session, args, next) => {
     //sino invoco al dialogo según lógica...
     const channelId = session.message.address.channelId;
     const userId = session.message.user.id;
-    const msg = JSON.parse(session.message.text);
+    //esto es solo cuando lo enviar dashbotchannel..
 
-    const userCachedData = cache.get(msg.userId) || { paused: false };
 
-    if ((channelId === 'directline' && userId === 'DashbotChannel') || userCachedData.paused) {
-        //reenviar lo q viene de dashbot...
-        // console.log(`dashbot: ${session.message.text}`);
-        // session.send('okok');
-        //  cache.set(userId, {paused: true, id: '', conver});
-        //   const msg = new builder.Message();
-        //   msg.address()
-        console.log(`after: ${userCachedData.address} - ${JSON.stringify(userCachedData)} - ${JSON.stringify(session.message)}`);
+    if (channelId === 'directline' && userId === 'DashbotChannel') {
+        const msg = JSON.parse(session.message.text);
+        const userCachedData = cache.get(msg.userId) || { paused: false, address: undefined };
+        if (userCachedData.paused && userCachedData.address) {
+            console.log(`after: ${userCachedData.address} - ${JSON.stringify(userCachedData)} - ${JSON.stringify(session.message)}`);
 
-        bot.send(new builder.Message()
-            .text('probando....')
-            .address(userCachedData.address)
-            .textLocale('es-ES'));
+            bot.send(new builder.Message()
+                .text('probando....')
+                .address(userCachedData.address)
+                .textLocale('es-ES'));
+        } else {
+            //TODO queda por ver q hacer en este punto..
+        }
     }
     else {
         console.log(`b4: ${session.message.address}`);
