@@ -11,13 +11,11 @@ const cache = new NodeCache({ stdTTL: process.env.TTL || 7200 });
 
 const bot = dashbotwrap.setDatbot(utils.initBot());
 
-bot.dialog('/', (session, args, next) => {
+bot.dialog('/', [(session, args, next) => {
     //si el canal es directline y el usuario es dashbotchannel => es en vivo,
     //sino invoco al dialogo según lógica...
     const channelId = session.message.address.channelId;
     const userId = session.message.user.id;
-    //esto es solo cuando lo enviar dashbotchannel..
-
 
     if (channelId === 'directline' && userId === 'DashbotChannel') {
         const msg = JSON.parse(session.message.text);
@@ -42,14 +40,14 @@ bot.dialog('/', (session, args, next) => {
         // cache.set(userId, { paused: false, address: session.message.address });
         // session.beginDialog('/BusinessDialog');
     }
-});
+}]);
 
-bot.dialog('/BusinessDialog', (session) => {
+bot.dialog('/BusinessDialog', [(session) => {
     console.log(`---< ${session.message.user.id}`);
     session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
         `me dijiste: ${session.message.text}, ${JSON.stringify(session.message.user)}, ` +
         `${session.message.address.channelId}`);
-});
+}]);
 
 
 
