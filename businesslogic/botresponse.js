@@ -40,8 +40,8 @@ module.exports = {
             session.endDialog(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
         }
         else {
-            await console.log(`2: ${userId}`);
-            await cache.set(userId, { paused: false, address: session.message.address });
+            console.log(`2: ${userId}`);
+            cache.set(userId, { paused: false, address: session.message.address });
             session.beginDialog('/prueba');
         }
     }
