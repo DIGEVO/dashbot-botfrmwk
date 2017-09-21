@@ -25,7 +25,7 @@ bot.dialog('/', (session, args, next) => {
         //  cache.set(userId, {paused: true, id: '', conver});
         //   const msg = new builder.Message();
         //   msg.address()
-        console.log(userCachedData.address);
+        console.log(`after: ${userCachedData.address} - ${userCachedData}`);
 
         bot.send(new builder.Message()
             .text('probando....')
@@ -33,6 +33,7 @@ bot.dialog('/', (session, args, next) => {
             .textLocale('es-ES'));
     }
     else {
+        console.log(`b4: ${session.message.address}`);
         cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/BusinessDialog');
     }
