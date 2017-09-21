@@ -8,7 +8,7 @@ const utils = require('./utils');
 const cache = new NodeCache({ stdTTL: process.env.TTL || 7200 });
 
 module.exports = {
-    proxy: async (session, args, next) => {
+    proxy: (session, args, next) => {
         const channelId = session.message.address.channelId;
         const userId = session.message.user.id;
 
