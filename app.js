@@ -25,6 +25,8 @@ bot.dialog('/', (session, args, next) => {
         //  cache.set(userId, {paused: true, id: '', conver});
         //   const msg = new builder.Message();
         //   msg.address()
+        console.log(userCachedData.address);
+
         bot.send(new builder.Message()
             .text('probando....')
             .address(userCachedData.address)
