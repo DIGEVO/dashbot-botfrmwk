@@ -1,5 +1,7 @@
 'use strict';
 
+const builder = require('botbuilder');
+
 const NodeCache = require('node-cache');
 require('dotenv').config();
 
