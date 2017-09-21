@@ -44,11 +44,13 @@ module.exports = {
     },
 
     secondStep(session, args, next) {
+        console.log('-*-*--*-*-* 1');
         if (session.dialogData.activeBot) next();
-
-        console.log(`2: ${userId}`);
-        cache.set(userId, { paused: false, address: session.message.address });
+        console.log('-*-*--*-*-* 2');
+        //console.log(`2: ${userId}`);
+       // cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/prueba');
+        console.log('-*-*--*-*-* 3');
     },
 
     finalStep(session, args, next){
