@@ -20,13 +20,18 @@ bot.dialog('/', (session, args, next) => {
 
     if ((channelId === 'directline' && userId === 'DashbotChannel') || userCachedData.paused) {
         //reenviar lo q viene de dashbot...
-       // console.log(`dashbot: ${session.message.text}`);
-       // session.send('okok');
-      //  cache.set(userId, {paused: true, id: '', conver});
-      bot.send(new builder.Message().text('probando....').address().textLocale('es-ES'));
+        // console.log(`dashbot: ${session.message.text}`);
+        // session.send('okok');
+        //  cache.set(userId, {paused: true, id: '', conver});
+        //   const msg = new builder.Message();
+        //   msg.address()
+        bot.send(new builder.Message()
+            .text('probando....')
+            .address(userCachedData.address)
+            .textLocale('es-ES'));
     }
     else {
-        cache.set(userId, {paused: false, address: session.message.address});
+        cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/BusinessDialog');
     }
 });
