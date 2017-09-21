@@ -36,6 +36,7 @@ function proxy(session, args, next) {
 
     if (channelId === 'directline' && userId === 'DashbotChannel') {
         const msg = JSON.parse(session.message.text);
+        console.log(`1: ${msg.userId}`);
         const userCachedData = cache.get(msg.userId) || { paused: false, address: undefined };
 
         userCachedData.paused = msg.paused;
@@ -61,6 +62,7 @@ function proxy(session, args, next) {
         session.endDialog(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
     }
     else {
+        console.log(`2: ${userId}`);
         cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/prueba');
     }
