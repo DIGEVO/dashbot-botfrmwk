@@ -45,5 +45,15 @@ module.exports = {
                 defaultLocale: process.env.DEFAULT_LOCALE
             }
         });
+    },
+
+    getName: message => message.user.name.split(" ", 1)[0]
+    ,
+
+    getGreetting: message => {
+        const date = new Date(message.timestamp);
+        const userLocalTime = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        const hour = userLocalTime.getHours();
+        return hour < 12 ? 'buenos días' : hour >= 19 ? 'buenas noches' : 'buenas tardes';
     }
 };
