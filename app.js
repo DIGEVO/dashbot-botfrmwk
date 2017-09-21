@@ -22,9 +22,11 @@ bot.dialog('/prueba', [(session) => {
 
 bot.dialog('/BusinessDialog', [(session) => {
     console.log(`---< ${session.message.user.id}`);
+
     session.send(`Hola6565 ${session.message.user.name.split(" ", 1)[0]}, ` +
         `me dijiste: ${session.message.text}, ${JSON.stringify(session.message.user)}, ` +
         `${session.message.address.channelId}`);
+
     session.endDialog();
 }]);
 
@@ -58,12 +60,13 @@ function proxy(session, args, next) {
             response = msg.text ? 'Message was sent.' : 'Pause/Activate bot';
         }
 
-        session.send(response);
+     //   session.send();
+        session.endDialog(response);
     }
     else {
         console.log(`b4: ${session.message.address}`);
         cache.set(userId, { paused: false, address: session.message.address });
-        session.beginDialog('/BusinessDialog');
+        session.beginDialog('/prueba');
     }
 }
 
