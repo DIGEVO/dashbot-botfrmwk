@@ -17,7 +17,7 @@ bot.dialog('/', [
 bot.dialog('/prueba', [(session) => {
     console.log(`---< ${session.message.user.id}`);
     const userId = session.message.user.id;
-    cache.set(userId, session.message.address);
+    flow.cache.set(userId, session.message.address);
 
     session.send('pruebs......');
 }]);
