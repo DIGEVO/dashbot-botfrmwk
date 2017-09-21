@@ -8,7 +8,7 @@ const utils = require('./utils');
 const cache = new NodeCache({ stdTTL: process.env.TTL || 7200 });
 
 module.exports = {
-    proxy(session, args, next) {
+    proxy: async (session, args, next) {
         const channelId = session.message.address.channelId;
         const userId = session.message.user.id;
     
@@ -40,8 +40,8 @@ module.exports = {
             session.endDialog(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
         }
         else {
-            console.log(`2: ${userId}`);
-            cache.set(userId, { paused: false, address: session.message.address });
+            await console.log(`2: ${userId}`);
+            await cache.set(userId, { paused: false, address: session.message.address });
             session.beginDialog('/prueba');
         }
     }
