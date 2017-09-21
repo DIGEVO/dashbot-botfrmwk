@@ -30,7 +30,7 @@ bot.dialog('/BusinessDialog', [(session) => {
     session.endDialog();
 }]);
 
-function proxy(session, args, next) {
+async function proxy(session, args, next) {
     const channelId = session.message.address.channelId;
     const userId = session.message.user.id;
 
@@ -62,8 +62,8 @@ function proxy(session, args, next) {
         session.endDialog(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
     }
     else {
-        console.log(`2: ${userId}`);
-        cache.set(userId, { paused: false, address: session.message.address });
+        await console.log(`2: ${userId}`);
+        await cache.set(userId, { paused: false, address: session.message.address });
         session.beginDialog('/prueba');
     }
 }
