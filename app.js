@@ -22,7 +22,8 @@ bot.dialog('/', (session, args, next) => {
     if (channelId === 'directline' && userId === 'DashbotChannel') {
         const msg = JSON.parse(session.message.text);
         const userCachedData = cache.get(msg.userId) || { paused: false, address: undefined };
-        console.log(`--> ${userCachedData}`);
+        console.log(`--> ${JSON.stringify(userCachedData)}`);
+        console.log(`--> ${JSON.stringify(session.message)}`);
         if (userCachedData.paused && userCachedData.address) {
             console.log(`after: ${userCachedData.address} - ${JSON.stringify(userCachedData)} - ${JSON.stringify(session.message)}`);
 
