@@ -28,7 +28,6 @@ bot.dialog('/BusinessDialog', [(session) => {
 
     session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
         `me dijiste: ${session.message.text}`);
-    console.log('asdasdasd');
 }]);
 
 
