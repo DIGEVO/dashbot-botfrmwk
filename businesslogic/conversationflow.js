@@ -20,11 +20,11 @@ module.exports = {
             module.exports.sendMessage(session);
             next();
         } else {
-            const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
-            if (!cacheData.paused)
+            // const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
+            // if (!cacheData.paused)
                 session.beginDialog('/BusinessDialog');
-            else
-                next();
+            // else
+            //     next();
         }
     },
 
