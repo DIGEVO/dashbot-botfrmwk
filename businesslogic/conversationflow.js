@@ -20,7 +20,7 @@ module.exports = {
             module.exports.sendMessage(session);
             next();
         } else {
-            const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
+            const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
             if (!cacheData.paused)
                 session.beginDialog('/BusinessDialog');
         }
