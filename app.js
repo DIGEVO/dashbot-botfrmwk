@@ -24,6 +24,8 @@ bot.dialog('/BusinessDialog', [(session) => {
         address: session.message.address
     });
 
+    console.log(`-> ${userId}`);
+
     session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
         `me dijiste: ${session.message.text}`);
     console.log('asdasdasd');

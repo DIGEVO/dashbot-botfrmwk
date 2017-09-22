@@ -18,6 +18,7 @@ module.exports = {
             module.exports.sendMessage(session);
             next();
         } else {
+            console.log(`--> ${userId}`);
             const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
             if (!cacheData.paused)
                 session.beginDialog('/BusinessDialog');
@@ -32,6 +33,7 @@ module.exports = {
 
     sendMessage(session) {
         const msg = JSON.parse(session.message.text);
+        console.log(`---> ${msg.userId}`);
         const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
 
         cacheData.paused = msg.paused;
