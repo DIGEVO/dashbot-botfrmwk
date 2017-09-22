@@ -15,16 +15,17 @@ bot.dialog('/', [
 ]);
 
 bot.dialog('/BusinessDialog', [(session) => {
-    const userId = session.message.user.id;
-    // const cacheData = flow.cache.get(userId) || { paused: false };
-    flow.cache.set(userId, {
-        paused: false,//cacheData.paused,
-        name: utils.getName(session.message), 
-        address: session.message.address
-    });
+    // const userId = session.message.user.id;
+    // // const cacheData = flow.cache.get(userId) || { paused: false };
+    // flow.cache.set(userId, {
+    //     paused: false,//cacheData.paused,
+    //     name: utils.getName(session.message), 
+    //     address: session.message.address
+    // });
 
-    session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
-        `me dijiste: ${session.message.text}`);
+    // session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
+    //     `me dijiste: ${session.message.text}`);
+    console.log('asdasdasd');
 }]);
 
 
