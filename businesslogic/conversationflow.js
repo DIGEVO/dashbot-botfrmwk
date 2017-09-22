@@ -22,9 +22,9 @@ module.exports = {
             
             const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
             if (!cacheData.paused)
-                session.beginDialog('/BusinessDialog');
-            //else
-              //  next();
+                session.beginDialog('BusinessDialog');
+            else
+              next();
         }
     },
 
