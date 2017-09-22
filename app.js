@@ -14,20 +14,7 @@ bot.dialog('/', [
     flow.finalStep
 ]);
 
-bot.dialog('/BusinessDialog', [(session) => {
-
-    // // const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
-    // // if (!cacheData.paused)
-    // //     session.beginDialog('/BusinessDialog');
-    // // else
-    // //     next();
-    // const userId = session.message.user.id;
-    // const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
-
-    // if (!cacheData.paused)
-    // {}
-
-
+bot.dialog('BusinessDialog', [(session) => {
     const userId = session.message.user.id;
     const cacheData = flow.cache.get(userId) || { paused: false };
 
