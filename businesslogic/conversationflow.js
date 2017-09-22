@@ -11,7 +11,6 @@ module.exports = {
     cache: new NodeCache({ stdTTL: 0 }),
 
     firstStep(session, args, next) {
-        console.log('oooooooo');
         const channelId = session.message.address.channelId;
         const userId = session.message.user.id;
 

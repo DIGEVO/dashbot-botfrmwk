@@ -7,7 +7,7 @@ const flow = require('./businesslogic/conversationflow');
 
 require('dotenv').config();
 
-const bot = utils.initBot();//dashbotwrap.setDatbot(utils.initBot());
+const bot = dashbotwrap.setDatbot(utils.initBot());
 
 bot.dialog('/', [
     flow.firstStep,
@@ -17,7 +17,7 @@ bot.dialog('/', [
 bot.dialog('/BusinessDialog', [(session) => {
     const userId = session.message.user.id;
     // const cacheData = flow.cache.get(userId) || { paused: false };
-    console.log('ppppp');
+    
     flow.cache.set(userId, {
         paused: false,//cacheData.paused,
         name: utils.getName(session.message), 
