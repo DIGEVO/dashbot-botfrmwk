@@ -10,7 +10,10 @@ module.exports = {
         console.log('iiiiiiiiiiii 2');
         module.exports.startServer(connector);
         console.log('iiiiiiiiiiii 3');
-        return module.exports.getBot(builder, connector);
+        //return module.exports.getBot(builder, connector);
+        const b = module.exports.getBot(builder, connector);
+        console.log('iiiiiiiiiiii 4');
+        return b;
     },
 
     startServer(connector) {
