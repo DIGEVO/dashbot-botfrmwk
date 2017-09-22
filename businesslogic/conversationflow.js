@@ -19,30 +19,12 @@ module.exports = {
             next();
         } else {
             console.log(`--> ${userId}`);
-            module.exports.cache.get(userId, (err, value) => {
-                if (!err) {
-                    // if (value == undefined) {
-                    //     // key not found 
-                    // } else {
-                    //     console.log(value);
-                    //     //{ my: "Special", variable: 42 } 
-                    //     // ... do something ... 
-                    // }
-                    value = value || { paused: false, name: undefined, address: undefined };
-
-                    if (!cacheData.paused)
-                        session.beginDialog('/BusinessDialog');
-                    else
-                        next();
-                }
-            });
-
             
-            // const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
-            // if (!cacheData.paused)
-            //     session.beginDialog('/BusinessDialog');
-            // else
-            //     next();
+            const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
+            if (!cacheData.paused)
+                session.beginDialog('/BusinessDialog');
+            else
+                next();
         }
     },
 
