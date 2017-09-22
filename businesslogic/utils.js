@@ -4,9 +4,12 @@ require('dotenv').config();
 
 module.exports = {
     initBot() {
+        console.log('iiiiiiiiiiii');
         const builder = require('botbuilder');
         const connector = module.exports.getConnector(builder);
+        console.log('iiiiiiiiiiii 2');
         module.exports.startServer(connector);
+        console.log('iiiiiiiiiiii 3');
         return module.exports.getBot(builder, connector);
     },
 
