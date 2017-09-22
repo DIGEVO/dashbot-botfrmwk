@@ -20,18 +20,22 @@ module.exports = {
             module.exports.sendMessage(session);
             next();
         } else {
-            session.beginDialog('/prueba');
+            const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
+            if (!cacheData.paused)
+                session.beginDialog('/BusinessDialog');
         }
     },
 
     finalStep(session, args, next) {
-        console.log('ending dialog');
         session.endDialog();
     },
 
     sendMessage(session) {
         const msg = JSON.parse(session.message.text);
-        const cacheData = module.exports.cache.get(msg.userId) || { name: undefined, address: undefined };
+        const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
+
+        cacheData.paused = msg.paused;
+        module.exports.cache.set(msg.userId, cacheData);
 
         let errorMsg = undefined;
         const name = cacheData.name ? ` ${cacheData.name}` : '';

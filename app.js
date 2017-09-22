@@ -14,21 +14,12 @@ bot.dialog('/', [
     flow.finalStep
 ]);
 
-bot.dialog('/prueba', [(session) => {
-    const userId = session.message.user.id;
-    flow.cache.set(userId, { name: utils.getName(session.message), address: session.message.address });
-
-    session.send('pruebs......');
-}]);
-
 bot.dialog('/BusinessDialog', [(session) => {
-    console.log(`---< ${session.message.user.id}`);
+    const userId = session.message.user.id;
+    flow.cache.set(userId, { paused: false, name: utils.getName(session.message), address: session.message.address });
 
-    session.send(`Hola6565 ${session.message.user.name.split(" ", 1)[0]}, ` +
-        `me dijiste: ${session.message.text}, ${JSON.stringify(session.message.user)}, ` +
-        `${session.message.address.channelId}`);
-
-    session.endDialog();
+    session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
+    `me dijiste: ${session.message.text}`);
 }]);
 
 
