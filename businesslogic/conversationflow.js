@@ -36,8 +36,8 @@ module.exports = {
         const msg = JSON.parse(session.message.text);
         const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
 
-        cacheData.paused = msg.paused;
-        module.exports.cache.set(msg.userId, cacheData);
+        //cacheData.paused = msg.paused;
+       // module.exports.cache.set(msg.userId, cacheData);
 
         let errorMsg = undefined;
         const name = cacheData.name ? ` ${cacheData.name}` : '';
