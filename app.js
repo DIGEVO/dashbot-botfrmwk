@@ -19,7 +19,8 @@ bot.dialog('/BusinessDialog', [(session) => {
     // const cacheData = flow.cache.get(userId) || { paused: false };
     flow.cache.set(userId, {
         paused: false,//cacheData.paused,
-        name: utils.getName(session.message), address: session.message.address
+        name: utils.getName(session.message), 
+        address: session.message.address
     });
 
     session.send(`Hola ${session.message.user.name.split(" ", 1)[0]}, ` +
