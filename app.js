@@ -7,7 +7,7 @@ const flow = require('./businesslogic/conversationflow');
 
 require('dotenv').config();
 
-const bot = dashbotwrap.setDatbot(utils.initBot());
+const bot = utils.initBot();//dashbotwrap.setDatbot(utils.initBot());
 
 bot.dialog('/', [
     flow.firstStep,
