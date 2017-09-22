@@ -35,12 +35,11 @@ module.exports = {
 
         let errorMsg = undefined;
         const name = cacheData.name ? ` ${cacheData.name}` : '';
-        const greetting = utils.getGreetting(session.message);
         const text =
             msg.text ||
             (msg.paused ?
-                `Hola${name}, ${greetting}, a partir de este momento hablarás con una persona` :
-                `Hola${name}, ${greetting}, a partir de este momento hablarás con la plataforma`);
+                `Hola${name}, a partir de este momento hablarás con una persona` :
+                `Hola${name}, a partir de este momento hablarás con la plataforma`);
 
         if (cacheData.address) {
             session.library.send(new builder.Message().text(text).address(cacheData.address));
