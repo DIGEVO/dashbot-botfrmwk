@@ -34,7 +34,6 @@ module.exports = {
         const msg = JSON.parse(session.message.text);
         const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
 
-        //TODO tener en cuenta el estado q tengo...arreglar mensaje tb.
         const lastState = cacheData.paused;
         cacheData.paused = msg.paused;
         module.exports.cache.set(msg.userId, cacheData);
@@ -44,15 +43,15 @@ module.exports = {
         const text = module.exports.getText(msg, name);
 
         if (cacheData.address) {
-            let headText = '';
             if (!lastState && msg.paused && msg.text) {
-                headText = `Hola${name}, a partir de este momento hablarás con una persona.\n`;
+                const txt = `Hola${name}, a partir de este momento hablarás con una persona.`;
+                session.library.send(
+                    new builder.Message().text(txt).address(cacheData.address),
+                    () => session.library.send(
+                        new builder.Message().text(text).address(cacheData.address)));
+            } else {
+                session.library.send(new builder.Message().text(text).address(cacheData.address));
             }
-
-            session.library
-                .send(new builder.Message()
-                    .text(`${headText}${text}`)
-                    .address(cacheData.address));
         } else {
             const topic = msg.text ? `el mensaje ${msg.text}` : `la desactivación/activación del bot`;
             errorMsg = `Error: No se pudo enviar "${topic}" ` +
