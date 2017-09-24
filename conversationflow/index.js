@@ -45,8 +45,9 @@ module.exports = {
         if (cacheData.address) {
             session.library.send(new builder.Message().text(text).address(cacheData.address));
         } else {
-            errorMsg = `Error: No se pudo enviar el mensaje: "${msg.text}" ` +
-                `al cliente "${msg.userId}" porque la dirección del mismo no aparece en la base de datos.`;
+            const topic = msg.text ? `el mensaje ${msg.text}` : `la desactivación/activación del bot`;
+            errorMsg = `Error: No se pudo enviar "${topic}" ` +
+                `al cliente "${msg.userId}" porque la dirección del mismo no aparece en la cache.`;
             console.error(errorMsg);
         }
 
