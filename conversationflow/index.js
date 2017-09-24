@@ -47,8 +47,7 @@ module.exports = {
                 const txt = `Hola${name}, a partir de este momento hablarás con una persona.`;
                 session.library.send(
                     new builder.Message().text(txt).address(cacheData.address),
-                    () => session.library.send(
-                        new builder.Message().text(text).address(cacheData.address)));
+                    () => session.library.send(new builder.Message().text(text).address(cacheData.address)));
             } else {
                 session.library.send(new builder.Message().text(text).address(cacheData.address));
             }
