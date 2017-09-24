@@ -35,6 +35,7 @@ module.exports = {
         const cacheData = module.exports.cache.get(msg.userId) || { paused: false, name: undefined, address: undefined };
 
         //TODO tener en cuenta el estado q tengo...arreglar mensaje tb.
+        const lastState = cacheData.paused;
         cacheData.paused = msg.paused;
         module.exports.cache.set(msg.userId, cacheData);
 
@@ -43,6 +44,11 @@ module.exports = {
         const text = module.exports.getText(msg, name);
 
         if (cacheData.address) {
+            if (!lastState) {
+                const text = `Hola${name}, a partir de este momento hablarás con una persona.`;
+                session.library.send(new builder.Message().text(text).address(cacheData.address));
+            }
+
             session.library.send(new builder.Message().text(text).address(cacheData.address));
         } else {
             const topic = msg.text ? `el mensaje ${msg.text}` : `la desactivación/activación del bot`;
@@ -55,7 +61,7 @@ module.exports = {
     },
 
     getText: (msg, name) => msg.text || (msg.paused ?
-        `Hola${name}, a partir de este momento hablarás con una persona` :
-        `Hola${name}, a partir de este momento hablarás con la plataforma`)
+        `Hola${name}, a partir de este momento hablarás con una persona.` :
+        `Hola${name}, a partir de este momento hablarás con la plataforma.`)
 
 };
