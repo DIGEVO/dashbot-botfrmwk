@@ -45,9 +45,8 @@ module.exports = {
 
         if (cacheData.address) {
             let headText = '';
-            console.log(`${lastState} ${msg.paused} ${msg.text}`);
             if (!lastState && msg.paused && msg.text) {
-                const text = `Hola${name}, a partir de este momento hablarás con una persona.\n`;
+                headText = `Hola${name}, a partir de este momento hablarás con una persona.\n`;
             }
 
             session.library
