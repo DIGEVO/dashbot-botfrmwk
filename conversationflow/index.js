@@ -40,7 +40,7 @@ module.exports = {
 
         let errorMsg = undefined;
         const name = cacheData.name ? ` ${cacheData.name}` : '';
-        const text = module.exports.getText(msg);
+        const text = module.exports.getText(msg, name);
 
         if (cacheData.address) {
             session.library.send(new builder.Message().text(text).address(cacheData.address));
@@ -53,7 +53,7 @@ module.exports = {
         session.send(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
     },
 
-    getText: msg => msg.text || (msg.paused ?
+    getText: (msg, name) => msg.text || (msg.paused ?
         `Hola${name}, a partir de este momento hablarás con una persona` :
         `Hola${name}, a partir de este momento hablarás con la plataforma`)
 
