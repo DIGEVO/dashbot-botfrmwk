@@ -5,7 +5,7 @@ const NodeCache = require('node-cache');
 require('dotenv').config();
 
 module.exports = {
-    getWaterflow: () => [module.exports.firstStep, module.exports.finalStep]
+    getWaterfall: () => [module.exports.firstStep, module.exports.finalStep]
     ,
 
     cache: new NodeCache({ stdTTL: process.env.TTL }),

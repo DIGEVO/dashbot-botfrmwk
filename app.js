@@ -16,7 +16,7 @@ const bot = dashbotwrap.setDatbot(utils2.initBot());
 middleware.initMiddleware(bot);
 middleware.addIncomingMessageHandler(utils.saveIncomingMessage);
 
-bot.dialog('/', flow.getWaterflow());
+bot.dialog('/', flow.getWaterfall());
 
 bot.dialog('BusinessDialog', [(session) => {
     session.endDialog(`Hola ${utils.getName(session.message)}, ` +
