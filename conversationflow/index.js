@@ -44,7 +44,7 @@ module.exports = {
         const text = module.exports.getText(msg, name);
 
         if (cacheData.address) {
-            if (!lastState) {
+            if (lastState) {
                 const text = `Hola${name}, a partir de este momento hablarás con una persona.`;
                 session.library.send(new builder.Message().text(text).address(cacheData.address));
             }
