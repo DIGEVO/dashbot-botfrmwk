@@ -1,14 +1,14 @@
 'use strict';
 
 const builder = require('botbuilder');
-
 const NodeCache = require('node-cache');
 require('dotenv').config();
 
-const utils = require('./utils');
-
 module.exports = {
-    cache: new NodeCache({ stdTTL: 0 }),
+    getWaterflow: () => [module.exports.firstStep, module.exports.finalStep]
+    ,
+
+    cache: new NodeCache({ stdTTL: process.env.TTL }),
 
     firstStep(session, args, next) {
         const channelId = session.message.address.channelId;
@@ -18,11 +18,11 @@ module.exports = {
             module.exports.sendMessage(session);
             next();
         } else {
-            const cacheData = module.exports.cache.get(userId) || { paused: false, name: undefined, address: undefined };
+            const cacheData = module.exports.cache.get(userId) || { paused: false };
             if (!cacheData.paused)
-                session.beginDialog('BusinessDialog');
+                session.beginDialog(process.env.BUSINESSDIALOG);
             else
-              next();
+                next();
         }
     },
 
@@ -40,11 +40,7 @@ module.exports = {
 
         let errorMsg = undefined;
         const name = cacheData.name ? ` ${cacheData.name}` : '';
-        const text =
-            msg.text ||
-            (msg.paused ?
-                `Hola${name}, a partir de este momento hablarás con una persona` :
-                `Hola${name}, a partir de este momento hablarás con la plataforma`);
+        const text = module.exports.getText(msg);
 
         if (cacheData.address) {
             session.library.send(new builder.Message().text(text).address(cacheData.address));
@@ -55,5 +51,10 @@ module.exports = {
         }
 
         session.send(errorMsg || (msg.text ? 'Mensaje enviado.' : 'Detención/Activación del bot.'));
-    }
+    },
+
+    getText: msg => msg.text || (msg.paused ?
+        `Hola${name}, a partir de este momento hablarás con una persona` :
+        `Hola${name}, a partir de este momento hablarás con la plataforma`)
+
 };
