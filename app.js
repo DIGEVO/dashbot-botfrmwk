@@ -1,10 +1,10 @@
 'use strict';
 
 const builder = require('botbuilder');
-const utils2 = require('./businesslogic/utils');
-const dashbotwrap = require('./dashbotwrapper');
-//const flow = require('./businesslogic/conversationflow');
 
+const utils2 = require('./businesslogic/utils');
+
+const dashbotwrap = require('./dashbotwrapper');
 const middleware = require('./middleware');
 const utils = require('./utils');
 const flow = require('./conversationflow');

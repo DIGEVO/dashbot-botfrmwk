@@ -44,12 +44,15 @@ module.exports = {
         const text = module.exports.getText(msg, name);
 
         if (cacheData.address) {
-            // if (!lastState && msg.paused && msg.text) {
-            //     const text = `Hola${name}, a partir de este momento hablarás con una persona.`;
-            //     session.library.send(new builder.Message().text(text).address(cacheData.address));
-            // }
+            let headText = '';
+            if (!lastState && msg.paused && msg.text) {
+                const text = `Hola${name}, a partir de este momento hablarás con una persona.`;
+            }
 
-            session.library.send(new builder.Message().text(text).address(cacheData.address));
+            session.library
+                .send(new builder.Message()
+                    .text(`${headText}${text}`)
+                    .address(cacheData.address));
         } else {
             const topic = msg.text ? `el mensaje ${msg.text}` : `la desactivación/activación del bot`;
             errorMsg = `Error: No se pudo enviar "${topic}" ` +
