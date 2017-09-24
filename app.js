@@ -2,7 +2,7 @@
 
 const builder = require('botbuilder');
 const utils2 = require('./businesslogic/utils');
-const dashbotwrap = require('./businesslogic/dashbotwrapper');
+const dashbotwrap = require('./dashbotwrapper');
 //const flow = require('./businesslogic/conversationflow');
 
 const middleware = require('./middleware');
