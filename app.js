@@ -11,7 +11,7 @@ const flow = require('./conversationflow');
 
 require('dotenv').config();
 
-const bot = dashbotwrap.setDatbot(utils2.initBot());
+const bot = dashbotwrap.setDashbot(utils2.initBot());
 
 middleware.initMiddleware(bot);
 middleware.addIncomingMessageHandler(utils.saveIncomingMessage);

@@ -3,7 +3,7 @@
 require('dotenv').config();
 
 module.exports = {
-    setDatbot(bot) {
+    setDashbot(bot) {
         const dashbotApiMap = {
             'facebook': process.env.DASHBOT_API_KEY_GENERIC,
             'webchat': process.env.DASHBOT_API_KEY_GENERIC,
