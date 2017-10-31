@@ -1,43 +1,44 @@
 'use strict';
 
-module.exports = {
+const self = module.exports = {
+    inMsgFuns: [],
+
+    outMsgFuns: [],
+
     initMiddleware: bot => bot.use({
-        botbuilder: processIncomingMessage,
-        send: processOutgoingMessage
+        botbuilder: self.processIncomingMessage,
+        send: self.processOutgoingMessage
     }),
 
-    addIncomingMessageHandler(functionHandler) {
-        inMsgFuns.push(functionHandler);
+    addIncomingMessageHandler: functionHandler =>
+        self.inMsgFuns.push(functionHandler)
+    ,
+
+    addOutgoingMessageHandler: functionHandler =>
+        self.outMsgFuns.push(functionHandler)
+    ,
+
+    processIncomingMessage(session, next) {
+        self.processMessages(session, next, self.inMsgFuns, 'incoming');
     },
 
-    addOutgoingMessageHandler(functionHandler) {
-        outMsgFuns.push(functionHandler);
+    processOutgoingMessage(event, next) {
+        self.processMessages(event, next, self.outMsgFuns, 'outgoing');
+    },
+
+    processMessages(param1, param2, arrFuns, msg) {
+        let errorMsg = '';
+
+        arrFuns.forEach((fun, i) => {
+            try {
+                fun(param1, () => { });
+            } catch (error) {
+                errorMsg.concat(`Error on ${msg} message function ${i}: ${error}\n`);
+            }
+        });
+
+        if (errorMsg !== '') console.error(errorMsg);
+
+        param2();
     }
 };
-
-var inMsgFuns = [];
-var outMsgFuns = [];
-
-function processIncomingMessage(session, next) {
-    processMessages(session, next, inMsgFuns, 'incoming');
-}
-
-function processOutgoingMessage(event, next) {
-    processMessages(event, next, outMsgFuns, 'outgoing');
-}
-
-function processMessages(param1, param2, arrFuns, msg) {
-    let errorMsg = '';
-
-    arrFuns.forEach((fun, i) => {
-        try {
-            fun(param1, () => { });
-        } catch (error) {
-            errorMsg.concat(`Error on ${msg} message function ${i}: ${error}\n`);
-        }
-    });
-
-    if (errorMsg !== '') console.error(errorMsg);
-
-    param2();
-}

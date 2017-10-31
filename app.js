@@ -2,19 +2,19 @@
 
 const builder = require('botbuilder');
 
-const utils2 = require('./businesslogic/utils');
-
-const dashbotwrap = require('./dashbotwrapper');
+const botutils = require('./botutils');
+const flow = require('./conversationflow');
 const middleware = require('./middleware');
 const utils = require('./utils');
-const flow = require('./conversationflow');
 
 require('dotenv').config();
 
-const bot = dashbotwrap.setDashbot(utils2.initBot());
+const bot = botutils.initBot();
 
 middleware.initMiddleware(bot);
-middleware.addIncomingMessageHandler(utils.saveIncomingMessage);
+middleware.addIncomingMessageHandler(utils.saveIncomingMessageIntoCache);
+middleware.addIncomingMessageHandler(utils.saveIncomingMessageIntoDashbot);
+middleware.addOutgoingMessageHandler(utils.saveOutgoingMessageIntoDashbot);
 
 bot.dialog('/', flow.getWaterfall());
 
