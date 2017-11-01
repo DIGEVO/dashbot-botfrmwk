@@ -29,16 +29,18 @@ const self = module.exports = {
                 method: 'POST',
                 auth: { 'bearer': process.env.DIALOGFLOW_TOKEN },
                 uri: process.env.URL,
-                body: { query: session.message.text, sessionId: 'dashbot-integration' },
+                body: {
+                    query: session.message.text,
+                    sessionId: 'dashbot-integration'
+                },
                 json: true
             })
-            .then(data =>
-                data.result.metadata.intentName ? {
-                    name: data.result.metadata.intentName,
-                    inputs: Object.keys(data.result.parameters)
-                        .map(k => ({ name: k, value: data.result.parameters[k] }))
-                        .filter(kv => kv.value)
-                } : undefined)
+            .then(data => data.result.metadata.intentName ? {
+                name: data.result.metadata.intentName,
+                inputs: Object.keys(data.result.parameters)
+                    .map(k => ({ name: k, value: data.result.parameters[k] }))
+                    .filter(kv => kv.value)
+            } : undefined)
             .then(intent => dashbot.logMessage({
                 text: session.message.text,
                 userId: session.message.user.id,
