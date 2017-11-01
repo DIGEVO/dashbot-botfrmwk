@@ -15,6 +15,7 @@
     "dashbot": "^9.2.0",
     "dotenv": "^4.0.0",
     "node-cache": "^4.1.1",
+    "request-promise-native": "^1.0.5",
     "restify": "^5.0.0"
   },
   "devDependencies": {

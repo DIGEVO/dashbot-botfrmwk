@@ -1,5 +1,6 @@
 'use strict';
 
+const rp = require('request-promise-native');
 require('dotenv').config();
 
 const flow = require('../conversationflow');
@@ -23,16 +24,31 @@ const self = module.exports = {
     },
 
     saveIncomingMessageIntoDashbot: (session, next) => {
-        dashbot.logMessage(
-            session.message.text, 
-            session.message.user.id,
-            session.message.address.conversation.id
-        );
+        rp
+            .post({
+                method: 'POST',
+                auth: { 'bearer': process.env.DIALOGFLOW_TOKEN },
+                uri: process.env.URL,
+                body: { query: session.message.text, sessionId: 'dashbot-integration' },
+                json: true
+            })
+            .then(data => ({
+                name: data.result.metadata.intentName,
+                inputs: Object.keys(data.result.parameters)
+                    .map(k => ({ name: k, value: data.result.parameters[k] }))
+                    .filter(kv => kv.value)
+            }))
+            .then(intent => dashbot.logMessage({
+                text: session.message.text,
+                userId: session.message.user.id,
+                intent: intent
+            }))
+            .catch(error => console.error(error));
     },
 
     saveOutgoingMessageIntoDashbot: (event, next) => {
         dashbot.logMessage(
-            event.text, 
+            event.text,
             event.address.user.id,
             event.address.conversation.id,
             false
