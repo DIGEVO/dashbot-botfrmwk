@@ -50,11 +50,10 @@ const self = module.exports = {
     },
 
     saveOutgoingMessageIntoDashbot: (event, next) => {
-        dashbot.logMessage(
-            event.text,
-            event.address.user.id,
-            event.address.conversation.id,
-            false
-        );
+        dashbot.logMessage({
+            text: event.text,
+            userId: event.address.user.id,
+            incoming: false
+        });
     }
 };
